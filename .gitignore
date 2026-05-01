@@ -1,9 +1,25 @@
+# ── Sensitive credentials (NEVER commit these) ──────────────────────────────
 .env
 .env.*
-!.env.example
-.DS_Store
+!.env.example        # keep only the example template, not real keys
+
+# ── Python cache & compiled files ────────────────────────────────────────────
 __pycache__/
 *.py[cod]
+*.pyo
 .pytest_cache/
+
+# ── Virtual environment ───────────────────────────────────────────────────────
 .venv/
+venv/
+env/
+
+# ── OS / editor artifacts ─────────────────────────────────────────────────────
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# ── Logs (keep the testnet demo log, ignore future run logs) ──────────────────
+logs/*.log
 !logs/trading_bot.log
