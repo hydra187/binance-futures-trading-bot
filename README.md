@@ -51,7 +51,10 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. Create a Binance Futures Testnet account and generate API credentials.
+3. Register for a **Binance Futures Testnet** account at [https://testnet.binancefuture.com](https://testnet.binancefuture.com) and generate API credentials:
+   - Log in with your Binance account
+   - Go to **API Key** tab → click **Generate HMAC_SHA256 Key**
+   - Copy the **API Key** and **Secret Key** (secret is shown only once)
 
 4. Create a `.env` file:
 
@@ -69,43 +72,26 @@ BINANCE_BASE_URL=https://testnet.binancefuture.com
 
 ## Usage Examples
 
-Run commands from the repository root.
+Run all commands from the repository root with the virtual environment active.
 
 ### Market Order
 
 ```bash
-python -m trading_bot \
-  --symbol BTCUSDT \
-  --side BUY \
-  --type MARKET \
-  --quantity 0.001
+python -m trading_bot --symbol BTCUSDT --side BUY --type MARKET --quantity 0.001
 ```
 
 ### Limit Order
 
 ```bash
-python -m trading_bot \
-  --symbol BTCUSDT \
-  --side SELL \
-  --type LIMIT \
-  --quantity 0.001 \
-  --price 120000 \
-  --time-in-force GTC
+python -m trading_bot --symbol BTCUSDT --side SELL --type LIMIT --quantity 0.001 --price 120000 --time-in-force GTC
 ```
 
-### Stop-Limit Order
+### Stop-Limit Order (Bonus)
 
-Binance Futures uses `STOP` for stop-limit orders.
+> **Note:** Binance Futures Testnet routes `STOP` orders to an Algo API endpoint. The command below is accepted and validated by the bot; the testnet may respond with a 400 if the endpoint is unavailable.
 
 ```bash
-python -m trading_bot \
-  --symbol BTCUSDT \
-  --side SELL \
-  --type STOP_LIMIT \
-  --quantity 0.001 \
-  --price 118000 \
-  --stop-price 119000 \
-  --time-in-force GTC
+python -m trading_bot --symbol BTCUSDT --side SELL --type STOP_LIMIT --quantity 0.001 --price 118000 --stop-price 119000 --time-in-force GTC
 ```
 
 ## Output
