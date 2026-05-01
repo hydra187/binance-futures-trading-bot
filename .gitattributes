@@ -1,0 +1,10 @@
+# Enforce Unix LF line endings for all text files
+* text=auto eol=lf
+
+# Explicitly set Python and config files to LF
+*.py text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+*.env text eol=lf
+*.gitignore text eol=lf
+*.gitattributes text eol=lf

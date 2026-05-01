@@ -1,6 +1,6 @@
 # Binance Futures Testnet Trading Bot
 
-A small Python CLI application for placing Market, Limit, and Stop-Limit orders on Binance USDT-M Futures Testnet.
+A small Python CLI application for placing Market and Limit orders on Binance USDT-M Futures Testnet (USDT-M).
 
 The application uses direct signed REST calls against:
 
@@ -10,13 +10,13 @@ https://testnet.binancefuture.com
 
 ## Features
 
-- Places `MARKET` and `LIMIT` orders on Binance Futures Testnet
-- Supports `BUY` and `SELL`
-- Bonus order type: `STOP` / `STOP_LIMIT`
-- Validates CLI input before sending requests
-- Prints a clean request summary and response details
-- Logs API requests, responses, validation events, and errors to `logs/trading_bot.log`
-- Keeps API logic separate from CLI logic
+- Places `MARKET` and `LIMIT` orders on Binance Futures Testnet ✅
+- Supports `BUY` and `SELL` sides ✅
+- Bonus: `STOP_LIMIT` order type is implemented and validated in code — the Binance Futures Testnet rejects it with 400 (routes STOP to Algo API endpoint), but all other logic works correctly
+- Validates all CLI input before sending any request
+- Prints a clean request summary and full response details
+- Logs all API requests, responses, validation events, and errors to `logs/trading_bot.log` (JSON-lines format)
+- Clean layered architecture: API client layer is fully separated from CLI layer
 
 ## Project Structure
 
