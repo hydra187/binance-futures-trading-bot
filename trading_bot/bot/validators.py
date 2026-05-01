@@ -8,7 +8,7 @@ from trading_bot.bot.exceptions import ValidationError
 
 
 VALID_SIDES = {"BUY", "SELL"}
-VALID_ORDER_TYPES = {"MARKET", "LIMIT", "STOP"}
+VALID_ORDER_TYPES = {"MARKET", "LIMIT", "STOP_MARKET"}
 VALID_TIME_IN_FORCE = {"GTC", "IOC", "FOK", "GTX"}
 
 
@@ -32,10 +32,10 @@ def normalize_side(side: str) -> str:
 
 def normalize_order_type(order_type: str) -> str:
     value = order_type.strip().upper()
-    if value == "STOP_LIMIT":
-        value = "STOP"
+    if value in ("STOP", "STOP_LIMIT", "STOP_MARKET"):
+        value = "STOP_MARKET"
     if value not in VALID_ORDER_TYPES:
-        raise ValidationError("order type must be MARKET, LIMIT, or STOP")
+        raise ValidationError("order type must be MARKET, LIMIT, or STOP_MARKET")
     return value
 
 
@@ -81,20 +81,20 @@ def validate_order_inputs(
             raise ValidationError("stopPrice is not accepted for MARKET orders")
         return normalized
 
-    if price is None:
-        raise ValidationError("price is required for LIMIT and STOP orders")
+    if normalized_type == "STOP_MARKET":
+        if price is not None:
+            raise ValidationError("price is not accepted for STOP_MARKET orders; use --stop-price")
+        if stop_price is None:
+            raise ValidationError("stopPrice is required for STOP_MARKET orders")
+        normalized["stopPrice"] = str(parse_positive_decimal(stop_price, "stopPrice"))
+        return normalized
 
+    # LIMIT
+    if price is None:
+        raise ValidationError("price is required for LIMIT orders")
     normalized["price"] = str(parse_positive_decimal(price, "price"))
     normalized["timeInForce"] = tif
-
-    if normalized_type == "STOP":
-        if stop_price is None:
-            raise ValidationError("stopPrice is required for STOP orders")
-        normalized["stopPrice"] = str(parse_positive_decimal(stop_price, "stopPrice"))
-        normalized["type"] = "STOP"
-    elif stop_price is not None:
-        raise ValidationError("stopPrice is only accepted for STOP orders")
+    if stop_price is not None:
+        raise ValidationError("stopPrice is only accepted for STOP_MARKET orders")
 
     return normalized
-
-# v1.0.0 - Binance Futures Testnet Trading Bot

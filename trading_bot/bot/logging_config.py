@@ -14,7 +14,7 @@ LOG_FILE = LOG_DIR / "trading_bot.log"
 
 
 class JsonLineFormatter(logging.Formatter):
-    """Small JSON-lines formatter for useful machine-readable logs."""
+    """Formats each log record as a single JSON line."""
 
     def format(self, record: logging.LogRecord) -> str:
         payload: dict[str, Any] = {
@@ -41,12 +41,10 @@ def configure_logging() -> None:
     root = logging.getLogger()
     root.setLevel(logging.INFO)
 
-    if any(getattr(handler, "_trading_bot_handler", False) for handler in root.handlers):
+    if any(getattr(h, "_trading_bot_handler", False) for h in root.handlers):
         return
 
     file_handler = logging.FileHandler(LOG_FILE)
     file_handler.setFormatter(JsonLineFormatter())
     file_handler._trading_bot_handler = True  # type: ignore[attr-defined]
     root.addHandler(file_handler)
-
-# v1.0.0 - Binance Futures Testnet Trading Bot

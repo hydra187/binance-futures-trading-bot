@@ -15,5 +15,3 @@ class ConfigError(TradingBotError):
 
 class BinanceAPIError(TradingBotError):
     """Raised when Binance returns an API error."""
-
-# v1.0.0 - Binance Futures Testnet Trading Bot

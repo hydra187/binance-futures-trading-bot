@@ -20,19 +20,19 @@ def build_parser() -> argparse.ArgumentParser:
         prog="trading-bot",
         description="Place Binance USDT-M Futures Testnet orders.",
     )
-    parser.add_argument("--symbol", required=True, help="Trading pair, for example BTCUSDT")
+    parser.add_argument("--symbol", required=True, help="Trading pair, e.g. BTCUSDT")
     parser.add_argument("--side", required=True, choices=["BUY", "SELL", "buy", "sell"])
     parser.add_argument(
         "--type",
         "--order-type",
         dest="order_type",
         required=True,
-        choices=["MARKET", "LIMIT", "STOP", "STOP_LIMIT", "market", "limit", "stop", "stop_limit"],
-        help="Order type. STOP is Binance's stop-limit order type.",
+        choices=["MARKET", "LIMIT", "STOP_MARKET", "market", "limit", "stop_market"],
+        help="Order type: MARKET, LIMIT, or STOP_MARKET (bonus).",
     )
     parser.add_argument("--quantity", required=True, help="Order quantity")
-    parser.add_argument("--price", help="Required for LIMIT and STOP orders")
-    parser.add_argument("--stop-price", help="Required for STOP orders")
+    parser.add_argument("--price", help="Required for LIMIT orders")
+    parser.add_argument("--stop-price", help="Required for STOP_MARKET orders")
     parser.add_argument("--time-in-force", default="GTC", help="GTC, IOC, FOK, or GTX. Default: GTC")
     parser.add_argument("--base-url", default=os.getenv("BINANCE_BASE_URL", DEFAULT_BASE_URL))
     return parser
@@ -86,12 +86,10 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     print_summary(request, response)
-    print(f"\nSuccess: order submitted to Binance Futures Testnet.")
+    print("\nSuccess: order submitted to Binance Futures Testnet.")
     print(f"Log file: {LOG_FILE}")
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
-# v1.0.0 - Binance Futures Testnet Trading Bot

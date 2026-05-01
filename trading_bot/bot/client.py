@@ -52,7 +52,7 @@ class BinanceFuturesClient:
             "recvWindow": 5000,
         }
         request_params["signature"] = self._sign(request_params)
-        safe_params = {key: value for key, value in request_params.items() if key != "signature"}
+        safe_params = {k: v for k, v in request_params.items() if k != "signature"}
         url = f"{self.base_url}{path}"
 
         LOGGER.info(
@@ -100,11 +100,8 @@ class BinanceFuturesClient:
 
     def place_order(self, order_params: dict[str, str]) -> dict[str, Any]:
         """Place an order on Binance USDT-M Futures."""
-
         params: dict[str, Any] = {
             **order_params,
             "newOrderRespType": "RESULT",
         }
         return self._signed_request("POST", "/fapi/v1/order", params)
-
-# v1.0.0 - Binance Futures Testnet Trading Bot
