@@ -6,5 +6,4 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
-logs/*.log
-!.gitkeep
+!logs/trading_bot.log
