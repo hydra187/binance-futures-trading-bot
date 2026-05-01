@@ -49,3 +49,4 @@ def configure_logging() -> None:
     file_handler._trading_bot_handler = True  # type: ignore[attr-defined]
     root.addHandler(file_handler)
 
+# v1.0.0 - Binance Futures Testnet Trading Bot

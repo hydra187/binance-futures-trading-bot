@@ -106,3 +106,5 @@ class BinanceFuturesClient:
             "newOrderRespType": "RESULT",
         }
         return self._signed_request("POST", "/fapi/v1/order", params)
+
+# v1.0.0 - Binance Futures Testnet Trading Bot

@@ -97,3 +97,4 @@ def validate_order_inputs(
 
     return normalized
 
+# v1.0.0 - Binance Futures Testnet Trading Bot

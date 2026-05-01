@@ -44,3 +44,4 @@ class OrderService:
         LOGGER.info("Order placement completed", extra={"event": "order_completed", "data": response})
         return request, response
 
+# v1.0.0 - Binance Futures Testnet Trading Bot
