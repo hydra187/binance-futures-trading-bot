@@ -1,7 +1,7 @@
 # ── Sensitive credentials (NEVER commit these) ──────────────────────────────
 .env
 .env.*
-!.env.example        # keep only the example template, not real keys
+!.env.example
 
 # ── Python cache & compiled files ────────────────────────────────────────────
 __pycache__/
